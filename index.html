@@ -3,31 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0a08">
+<meta name="theme-color" content="#f4f6f7">
 <title>四冲程内燃机 · 汽油机与柴油机原理</title>
 <style>
 @font-face{font-family:"Alumni Sans";src:url("fonts/alumni-sans-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:"Albert Sans";src:url("fonts/albert-sans-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 :root{
-  color-scheme:dark;
-  --ks-lacquer:oklch(7% .006 95);--ks-lacquer-deep:oklch(4% .004 95);--ks-raised:oklch(11% .006 95);
-  --ks-graphite:oklch(15% .008 95);--ks-graphite-2:oklch(19% .008 95);
-  --ks-champagne:oklch(91% 0 0);--ks-body:oklch(88% 0 0);--ks-muted:oklch(72% 0 0);--ks-faint:oklch(62% 0 0);
-  --ks-gold:oklch(84% .19 80.46);--ks-gold-pale:oklch(86% .07 84);--ks-gold-rich:oklch(77% .13 82);--ks-gold-deep:oklch(61% .085 78);
-  --ks-patina:oklch(70% .12 188);--ks-patina-deep:oklch(49% .08 188);
-  --ks-ink:oklch(14% .018 95);
-  --ks-rule:oklch(78% 0 0 / .16);--ks-rule-strong:oklch(74% .09 82 / .6);
+  color-scheme:light;
+  --ks-lacquer:oklch(97.6% 0 0);--ks-lacquer-deep:oklch(94.8% 0 0);--ks-raised:oklch(99.2% 0 0);
+  --ks-graphite:oklch(96% 0 0);--ks-graphite-2:oklch(92.5% 0 0);
+  --ks-champagne:oklch(16% .008 255);--ks-body:oklch(31% .012 255);--ks-muted:oklch(50% .012 255);--ks-faint:oklch(64% .01 255);
+  --ks-gold:oklch(21% .012 255);--ks-gold-pale:oklch(32% .014 255);--ks-gold-rich:oklch(26% .012 255);--ks-gold-deep:oklch(45% .012 255);
+  --ks-patina:oklch(50% .014 255);--ks-patina-deep:oklch(36% .012 255);
+  --ks-ink:oklch(98% 0 0);
+  --ks-rule:oklch(20% 0 0 / .12);--ks-rule-strong:oklch(20% 0 0 / .3);
   --ks-display:"Alumni Sans","PingFang SC","Microsoft YaHei",Arial,sans-serif;
   --ks-sans:"Albert Sans","PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,system-ui,sans-serif;
   --ks-mono:"SFMono-Regular","Roboto Mono",Menlo,Consolas,monospace;
-  --ks-ease:cubic-bezier(.16,1,.3,1);--ks-panel:0 24px 70px oklch(2% .004 95 / .42);
+  --ks-ease:cubic-bezier(.16,1,.3,1);--ks-panel:0 18px 40px -24px oklch(25% 0 0 / .22);
 }
 *{box-sizing:border-box}
 html{background:var(--ks-lacquer);scrollbar-color:var(--ks-graphite-2) var(--ks-lacquer-deep)}
 ::selection{background:var(--ks-gold);color:var(--ks-ink)}
 body{margin:0;background:
-  radial-gradient(980px 520px at 18% -12%,oklch(84% .19 80.46 / .07),transparent 62%),
-  radial-gradient(820px 480px at 92% 4%,oklch(70% .12 188 / .05),transparent 60%),
+  radial-gradient(1100px 600px at 50% -20%,oklch(99.2% 0 0 / .85),transparent 60%),
   var(--ks-lacquer);
   color:var(--ks-body);font:1rem/1.8 var(--ks-sans);
   -webkit-font-smoothing:antialiased;min-height:100vh;caret-color:var(--ks-gold);
