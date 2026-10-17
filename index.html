@@ -3,123 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#0b0a08">
 <title>四冲程内燃机 · 汽油机与柴油机原理</title>
 <style>
+@font-face{font-family:"Alumni Sans";src:url("fonts/alumni-sans-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Albert Sans";src:url("fonts/albert-sans-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 :root{
   color-scheme:dark;
-  --page:#0b0b0b;--card:#131313;--line:#232323;--line-soft:#1c1c1c;
-  --text:#a3a3a3;--strong:#e8e8e8;--muted:#6e6e6e;
-  --blue:#2fa9ff;--blue-deep:#0d6cb8;--red:#e01b1b;--red-deep:#8f1620;
-  --lift:0 18px 44px -24px rgba(0,0,0,.75);
+  --ks-lacquer:oklch(7% .006 95);--ks-lacquer-deep:oklch(4% .004 95);--ks-raised:oklch(11% .006 95);
+  --ks-graphite:oklch(15% .008 95);--ks-graphite-2:oklch(19% .008 95);
+  --ks-champagne:oklch(91% 0 0);--ks-body:oklch(88% 0 0);--ks-muted:oklch(72% 0 0);--ks-faint:oklch(62% 0 0);
+  --ks-gold:oklch(84% .19 80.46);--ks-gold-pale:oklch(86% .07 84);--ks-gold-rich:oklch(77% .13 82);--ks-gold-deep:oklch(61% .085 78);
+  --ks-patina:oklch(70% .12 188);--ks-patina-deep:oklch(49% .08 188);
+  --ks-ink:oklch(14% .018 95);
+  --ks-rule:oklch(78% 0 0 / .16);--ks-rule-strong:oklch(74% .09 82 / .6);
+  --ks-display:"Alumni Sans","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  --ks-sans:"Albert Sans","PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,system-ui,sans-serif;
+  --ks-mono:"SFMono-Regular","Roboto Mono",Menlo,Consolas,monospace;
+  --ks-ease:cubic-bezier(.16,1,.3,1);--ks-panel:0 24px 70px oklch(2% .004 95 / .42);
 }
 *{box-sizing:border-box}
-html{background:var(--page)}
+html{background:var(--ks-lacquer);scrollbar-color:var(--ks-graphite-2) var(--ks-lacquer-deep)}
+::selection{background:var(--ks-gold);color:var(--ks-ink)}
 body{margin:0;background:
-  radial-gradient(900px 480px at 50% -10%,rgba(47,169,255,.10),transparent 62%),
-  radial-gradient(760px 420px at 88% 8%,rgba(224,27,27,.07),transparent 60%),
-  var(--page);
-  color:var(--text);font:15px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  -webkit-font-smoothing:antialiased;min-height:100vh;
-  padding:max(28px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(36px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+  radial-gradient(980px 520px at 18% -12%,oklch(84% .19 80.46 / .07),transparent 62%),
+  radial-gradient(820px 480px at 92% 4%,oklch(70% .12 188 / .05),transparent 60%),
+  var(--ks-lacquer);
+  color:var(--ks-body);font:1rem/1.8 var(--ks-sans);
+  -webkit-font-smoothing:antialiased;min-height:100vh;caret-color:var(--ks-gold);
+  padding:max(24px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) max(40px,env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));
 }
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
-.page{width:min(1040px,100%);margin:0 auto}
-header.hero{padding:clamp(18px,5vw,52px) 2px 26px}
-.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(47,169,255,.7)}
-.eyebrow .dot.red{background:var(--red);box-shadow:0 0 10px rgba(224,27,27,.6)}
-h1{margin:16px 0 0;font-size:clamp(30px,6vw,54px);line-height:1.08;letter-spacing:-.03em;color:var(--strong);font-weight:700}
-h1 .thin{color:var(--muted);font-weight:500}
-.lede{max-width:56ch;margin:16px 0 0;font-size:clamp(14px,1.7vw,17px);color:var(--text)}
-.lede b{color:var(--strong);font-weight:600}
-.palette{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;color:var(--muted)}
-.palette span{display:inline-flex;align-items:center;gap:7px}
-.palette i{width:10px;height:10px;border-radius:50%;display:inline-block}
-.palette .blue{background:linear-gradient(135deg,#bfefff,#0d6cb8)}
-.palette .red{background:linear-gradient(135deg,#ff8a80,#8f1620)}
-main{margin-top:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px}
-a.card{position:relative;display:flex;flex-direction:column;gap:10px;padding:20px 20px 18px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:inherit;box-shadow:var(--lift);overflow:hidden;transition:transform .18s ease,border-color .18s ease,background .18s ease}
-a.card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--accent)}
-a.card:hover,a.card:focus-visible{transform:translateY(-3px);border-color:#343434;background:#161616;outline:none}
-.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
-.card-top .no{color:var(--accent)}
-.card h2{margin:0;font-size:20px;line-height:1.25;letter-spacing:-.01em;color:var(--strong);font-weight:650}
-.card p{margin:0;font-size:13.5px;line-height:1.6;color:var(--text)}
-.card ul{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
-.card li{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.02em;color:var(--muted);border:1px solid var(--line-soft);border-radius:99px;padding:3px 8px;background:#101010}
-.card .go{margin-top:4px;font-size:12.5px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:6px}
-.card .go::after{content:"→";transition:transform .18s ease}
-a.card:hover .go::after{transform:translateX(3px)}
-.gas{--accent:var(--blue)}
-.diesel{--accent:var(--red)}
-.overview{--accent:#7bbfe8}
-.overview::before{background:linear-gradient(180deg,var(--blue) 0 50%,var(--red) 50% 100%)}
-.how{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
-.how div{background:#101010;border:1px solid var(--line-soft);border-radius:12px;padding:13px 15px}
-.how h3{margin:0 0 4px;font-size:12px;letter-spacing:.06em;color:var(--strong);font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-.how p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.6}
-footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line-soft);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.04em;color:var(--muted)}
-@media(max-width:640px){
-  body{padding-top:max(20px,env(safe-area-inset-top))}
-  h1{margin-top:12px}
-  .grid{gap:12px}
-  a.card{padding:17px 16px 16px;border-radius:14px}
-  .card h2{font-size:18px}
-  footer{display:block;line-height:1.8}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--ks-lacquer-deep)}
+::-webkit-scrollbar-thumb{background:var(--ks-graphite-2);border:2px solid var(--ks-lacquer-deep)}
+:focus-visible{outline:2px solid var(--ks-patina);outline-offset:4px}
+.page{width:min(1120px,100%);margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:4px 0 18px;border-bottom:1px solid var(--ks-rule)}
+.brand{display:inline-flex;align-items:baseline;gap:12px;color:var(--ks-champagne);text-decoration:none;font-family:var(--ks-mono);font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase}
+.brand b{font-family:var(--ks-sans);font-size:.9375rem;font-weight:500;letter-spacing:.02em;color:var(--ks-champagne)}
+.nav{display:flex;gap:18px;font-family:var(--ks-mono);font-size:.6875rem;letter-spacing:.08em}
+.nav a{color:var(--ks-muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+.nav a:hover{color:var(--ks-gold);border-bottom-color:var(--ks-rule-strong)}
+.hero{padding:clamp(36px,7vw,84px) 0 clamp(28px,4vw,44px)}
+.hero h1{margin:0;font-family:var(--ks-display);font-size:clamp(3.4rem,8vw,5.6rem);font-weight:100;line-height:1.02;letter-spacing:-.01em;color:var(--ks-champagne)}
+.hero h1 span{display:block;color:var(--ks-muted);font-weight:300}
+.lead{max-width:68ch;margin:22px 0 0;font-size:1.0625rem;line-height:1.8;color:var(--ks-body)}
+.lead b{color:var(--ks-champagne);font-weight:500}
+.facts{display:flex;flex-wrap:wrap;gap:8px 26px;margin:22px 0 0;font-family:var(--ks-mono);font-size:.6875rem;letter-spacing:.12em;color:var(--ks-muted)}
+.facts span{display:inline-flex;align-items:center;gap:9px}
+.facts span+span::before{content:"";width:1px;height:10px;background:var(--ks-rule);margin-right:17px}
+.cta{display:inline-flex;align-items:center;gap:12px;min-height:52px;margin-top:28px;padding:0 26px;border:1px solid var(--ks-gold);border-radius:2px;background:var(--ks-gold);color:var(--ks-ink);font-family:var(--ks-sans);font-size:.9375rem;font-weight:600;text-decoration:none;transition:background .18s var(--ks-ease),border-color .18s var(--ks-ease)}
+.cta:hover{background:var(--ks-gold-pale);border-color:var(--ks-gold-pale)}
+.cta span{font-family:var(--ks-mono);font-weight:400}
+.section{padding-top:clamp(20px,3vw,34px)}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid var(--ks-rule)}
+.section-head h2{margin:0;font-family:var(--ks-display);font-size:clamp(2rem,3vw,2.5rem);font-weight:300;line-height:1.1;letter-spacing:0;color:var(--ks-champagne)}
+.section-head span{font-family:var(--ks-mono);font-size:.6875rem;letter-spacing:.12em;color:var(--ks-muted)}
+.index{margin:0;padding:0;list-style:none}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px 24px;padding:20px 4px;border-bottom:1px solid var(--ks-rule);text-decoration:none;color:inherit;transition:background .18s var(--ks-ease),padding .18s var(--ks-ease)}
+.row:hover{background:var(--ks-graphite);padding-left:12px;padding-right:12px}
+.row-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.row-main strong{font-family:var(--ks-sans);font-size:1.125rem;font-weight:500;line-height:1.35;color:var(--ks-champagne)}
+.row-main em{font-style:normal;font-family:var(--ks-mono);font-size:.6875rem;letter-spacing:.06em;color:var(--ks-muted)}
+.row-side{display:flex;align-items:center;gap:16px;white-space:nowrap}
+.row-side span{font-family:var(--ks-mono);font-size:.75rem;letter-spacing:.08em;color:var(--ks-gold)}
+.row:hover .row-main strong{color:var(--ks-gold)}
+.row:hover .row-side span{color:var(--ks-patina)}
+.guide{padding-top:clamp(26px,4vw,44px)}
+.guide dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 26px;margin:16px 0 0}
+.guide div{border-top:1px solid var(--ks-rule);padding-top:10px}
+.guide dt{font-family:var(--ks-mono);font-size:.6875rem;letter-spacing:.14em;color:var(--ks-gold)}
+.guide dd{margin:6px 0 0;font-size:.875rem;line-height:1.7;color:var(--ks-muted)}
+footer{margin-top:clamp(40px,6vw,72px);padding-top:14px;border-top:1px solid var(--ks-rule-strong);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px;font-family:var(--ks-mono);font-size:.625rem;letter-spacing:.1em;color:var(--ks-muted)}
+footer .patina{display:inline-block;width:28px;height:2px;background:var(--ks-patina);margin-right:10px;vertical-align:2px}
+@media(max-width:760px){
+  body{padding-top:max(16px,env(safe-area-inset-top))}
+  .top{flex-wrap:wrap;gap:10px 16px}
+  .nav{gap:14px}
+  .hero h1{font-size:clamp(2.8rem,11vw,4rem)}
+  .lead{font-size:1rem}
+  .guide dl{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;padding:16px 2px}
+  .row-side{justify-content:space-between}
 }
-@media(prefers-reduced-motion:reduce){a.card,.card .go::after{transition:none}}
+@media(prefers-reduced-motion:reduce){.cta,.row{transition:none}}
 </style>
 </head>
 <body>
 <div class="page">
-  <header class="hero">
-    <div class="eyebrow"><span class="dot"></span><span class="mono">人教版 · 九年级物理 · 热机</span><span class="dot red"></span><span class="mono">四冲程内燃机</span></div>
-    <h1>汽油机与柴油机<br><span class="thin">四个冲程，两种点火方式</span></h1>
-    <p class="lede">交互式等轴测剖视图：拖动曲轴转角观察<b>活塞、气门与气体</b>的变化。新鲜气体为<b>蓝色</b>，点火后爆燃转<b>红色</b>，废气以暗红排出。适配手机、平板与桌面。</p>
-    <div class="palette">
-      <span><i class="blue"></i>蓝 · 新鲜气体 / 压缩</span>
-      <span><i class="red"></i>红 · 燃烧做功 / 废气</span>
-    </div>
+  <header class="top">
+    <a class="brand" href="index.html"><b>四冲程内燃机</b><span>720°</span></a>
+    <nav class="nav" aria-label="页面导航">
+      <a href="gasoline-engine.html">汽油机</a>
+      <a href="diesel-engine.html">柴油机</a>
+      <a href="four-stroke-engines.html">对比总览</a>
+    </nav>
   </header>
 
   <main>
-    <div class="grid">
-      <a class="card gas" href="gasoline-engine.html">
-        <div class="card-top"><span class="no">01 / 汽油机</span><span>火花点火</span></div>
-        <h2>汽油机详情</h2>
-        <p>化油器形成混合气，火花塞在上止点前点燃。观察进气门、排气门与蓝色混合气的爆燃变红。</p>
-        <ul><li>四冲程动画</li><li>部件拆解</li><li>中考小测验</li></ul>
-        <span class="go">进入汽油机</span>
-      </a>
+    <section class="hero">
+      <h1>汽油机与柴油机<span>四个冲程，两种点火</span></h1>
+      <p class="lead">交互式等轴测剖视图。拖动曲轴转角，观察活塞、气门与气体的变化：<b>新鲜气体为蓝色</b>，点火后爆燃转<b>红色</b>，废气以暗红排出。适配手机、平板与桌面。</p>
+      <div class="facts" aria-label="基本参数">
+        <span>720° 曲轴</span>
+        <span>4 个冲程</span>
+        <span>2 种点火方式</span>
+      </div>
+      <a class="cta" href="gasoline-engine.html">从汽油机开始 <span aria-hidden="true">→</span></a>
+    </section>
 
-      <a class="card diesel" href="diesel-engine.html">
-        <div class="card-top"><span class="no">02 / 柴油机</span><span>压燃点火</span></div>
-        <h2>柴油机详情</h2>
-        <p>无节气门，压缩比 17.5:1。喷油器在上止点前喷入柴油，高温空气使柴油自燃。</p>
-        <ul><li>喷油泵与高压油管</li><li>碗形燃烧室</li><li>中考小测验</li></ul>
-        <span class="go">进入柴油机</span>
-      </a>
+    <section class="section" aria-labelledby="pages-title">
+      <div class="section-head"><h2 id="pages-title">三个页面</h2><span>选择一个进入</span></div>
+      <ul class="index">
+        <li><a class="row" href="gasoline-engine.html">
+          <span class="row-main"><strong>汽油机详情</strong><em>火花点火 · 化油器与节气门 · 部件拆解 · 小测验</em></span>
+          <span class="row-side"><span>进入</span></span>
+        </a></li>
+        <li><a class="row" href="diesel-engine.html">
+          <span class="row-main"><strong>柴油机详情</strong><em>压燃点火 · 喷油泵与高压油管 · 碗形燃烧室</em></span>
+          <span class="row-side"><span>进入</span></span>
+        </a></li>
+        <li><a class="row" href="four-stroke-engines.html">
+          <span class="row-main"><strong>对比总览</strong><em>两台发动机并排运行 · 共用曲轴转角表 · 差异对照</em></span>
+          <span class="row-side"><span>打开</span></span>
+        </a></li>
+      </ul>
+    </section>
 
-      <a class="card overview" href="four-stroke-engines.html">
-        <div class="card-top"><span class="no">03 / 总览</span><span>并排对比</span></div>
-        <h2>对比总览</h2>
-        <p>两台发动机同台运行，共用曲轴转角表，一眼比较点火方式、配气与气体颜色。</p>
-        <ul><li>汽油机 vs 柴油机</li><li>差异对照表</li><li>可拆解部件</li></ul>
-        <span class="go">打开对比总览</span>
-      </a>
-    </div>
-
-    <section class="how" aria-label="使用说明">
-      <div><h3>拖动角度</h3><p>使用“曲轴转角”滑杆或表盘四角的冲程按钮，精确定位到吸气、压缩、做功、排气。</p></div>
-      <div><h3>点按部件</h3><p>点击图中的蓝点查看零件说明；单击机体可拆解气门组、缸盖、进排气管与飞轮。</p></div>
-      <div><h3>随堂小测</h3><p>每个详情页附三道随机判断题，适合课堂投屏或手机自测。</p></div>
+    <section class="section guide" aria-labelledby="how-title">
+      <div class="section-head"><h2 id="how-title">操作</h2><span>课堂投屏或手机自测</span></div>
+      <dl>
+        <div><dt>拖动角度</dt><dd>用曲轴转角滑杆或表盘四角的冲程按钮，定位到吸气、压缩、做功、排气。</dd></div>
+        <div><dt>点按部件</dt><dd>点击图中的圆点查看零件说明；单击机体可拆解气门组、缸盖、进排气管与飞轮。</dd></div>
+        <div><dt>随堂小测</dt><dd>详情页附三道随机判断题，可重复抽题，适合课堂提问或课后自测。</dd></div>
+      </dl>
     </section>
   </main>
 
   <footer>
-    <span>四冲程内燃机 · 原理展示</span>
+    <span><i class="patina"></i>四冲程内燃机 · 原理展示</span>
     <span>手机 / 平板 / 桌面自适应</span>
   </footer>
 </div>
