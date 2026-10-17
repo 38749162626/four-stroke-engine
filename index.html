@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0b">
+<title>四冲程内燃机 · 汽油机与柴油机原理</title>
+<style>
+:root{
+  color-scheme:dark;
+  --page:#0b0b0b;--card:#131313;--line:#232323;--line-soft:#1c1c1c;
+  --text:#a3a3a3;--strong:#e8e8e8;--muted:#6e6e6e;
+  --blue:#2fa9ff;--blue-deep:#0d6cb8;--red:#e01b1b;--red-deep:#8f1620;
+  --lift:0 18px 44px -24px rgba(0,0,0,.75);
+}
+*{box-sizing:border-box}
+html{background:var(--page)}
+body{margin:0;background:
+  radial-gradient(900px 480px at 50% -10%,rgba(47,169,255,.10),transparent 62%),
+  radial-gradient(760px 420px at 88% 8%,rgba(224,27,27,.07),transparent 60%),
+  var(--page);
+  color:var(--text);font:15px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+  padding:max(28px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(36px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+.page{width:min(1040px,100%);margin:0 auto}
+header.hero{padding:clamp(18px,5vw,52px) 2px 26px}
+.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(47,169,255,.7)}
+.eyebrow .dot.red{background:var(--red);box-shadow:0 0 10px rgba(224,27,27,.6)}
+h1{margin:16px 0 0;font-size:clamp(30px,6vw,54px);line-height:1.08;letter-spacing:-.03em;color:var(--strong);font-weight:700}
+h1 .thin{color:var(--muted);font-weight:500}
+.lede{max-width:56ch;margin:16px 0 0;font-size:clamp(14px,1.7vw,17px);color:var(--text)}
+.lede b{color:var(--strong);font-weight:600}
+.palette{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;color:var(--muted)}
+.palette span{display:inline-flex;align-items:center;gap:7px}
+.palette i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.palette .blue{background:linear-gradient(135deg,#bfefff,#0d6cb8)}
+.palette .red{background:linear-gradient(135deg,#ff8a80,#8f1620)}
+main{margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px}
+a.card{position:relative;display:flex;flex-direction:column;gap:10px;padding:20px 20px 18px;background:var(--card);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:inherit;box-shadow:var(--lift);overflow:hidden;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+a.card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--accent)}
+a.card:hover,a.card:focus-visible{transform:translateY(-3px);border-color:#343434;background:#161616;outline:none}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.card-top .no{color:var(--accent)}
+.card h2{margin:0;font-size:20px;line-height:1.25;letter-spacing:-.01em;color:var(--strong);font-weight:650}
+.card p{margin:0;font-size:13.5px;line-height:1.6;color:var(--text)}
+.card ul{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.card li{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.02em;color:var(--muted);border:1px solid var(--line-soft);border-radius:99px;padding:3px 8px;background:#101010}
+.card .go{margin-top:4px;font-size:12.5px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:6px}
+.card .go::after{content:"→";transition:transform .18s ease}
+a.card:hover .go::after{transform:translateX(3px)}
+.gas{--accent:var(--blue)}
+.diesel{--accent:var(--red)}
+.overview{--accent:#7bbfe8}
+.overview::before{background:linear-gradient(180deg,var(--blue) 0 50%,var(--red) 50% 100%)}
+.how{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.how div{background:#101010;border:1px solid var(--line-soft);border-radius:12px;padding:13px 15px}
+.how h3{margin:0 0 4px;font-size:12px;letter-spacing:.06em;color:var(--strong);font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.how p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.6}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line-soft);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:.04em;color:var(--muted)}
+@media(max-width:640px){
+  body{padding-top:max(20px,env(safe-area-inset-top))}
+  h1{margin-top:12px}
+  .grid{gap:12px}
+  a.card{padding:17px 16px 16px;border-radius:14px}
+  .card h2{font-size:18px}
+  footer{display:block;line-height:1.8}
+}
+@media(prefers-reduced-motion:reduce){a.card,.card .go::after{transition:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span><span class="mono">人教版 · 九年级物理 · 热机</span><span class="dot red"></span><span class="mono">四冲程内燃机</span></div>
+    <h1>汽油机与柴油机<br><span class="thin">四个冲程，两种点火方式</span></h1>
+    <p class="lede">交互式等轴测剖视图：拖动曲轴转角观察<b>活塞、气门与气体</b>的变化。新鲜气体为<b>蓝色</b>，点火后爆燃转<b>红色</b>，废气以暗红排出。适配手机、平板与桌面。</p>
+    <div class="palette">
+      <span><i class="blue"></i>蓝 · 新鲜气体 / 压缩</span>
+      <span><i class="red"></i>红 · 燃烧做功 / 废气</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <a class="card gas" href="gasoline-engine.html">
+        <div class="card-top"><span class="no">01 / 汽油机</span><span>火花点火</span></div>
+        <h2>汽油机详情</h2>
+        <p>化油器形成混合气，火花塞在上止点前点燃。观察进气门、排气门与蓝色混合气的爆燃变红。</p>
+        <ul><li>四冲程动画</li><li>部件拆解</li><li>中考小测验</li></ul>
+        <span class="go">进入汽油机</span>
+      </a>
+
+      <a class="card diesel" href="diesel-engine.html">
+        <div class="card-top"><span class="no">02 / 柴油机</span><span>压燃点火</span></div>
+        <h2>柴油机详情</h2>
+        <p>无节气门，压缩比 17.5:1。喷油器在上止点前喷入柴油，高温空气使柴油自燃。</p>
+        <ul><li>喷油泵与高压油管</li><li>碗形燃烧室</li><li>中考小测验</li></ul>
+        <span class="go">进入柴油机</span>
+      </a>
+
+      <a class="card overview" href="four-stroke-engines.html">
+        <div class="card-top"><span class="no">03 / 总览</span><span>并排对比</span></div>
+        <h2>对比总览</h2>
+        <p>两台发动机同台运行，共用曲轴转角表，一眼比较点火方式、配气与气体颜色。</p>
+        <ul><li>汽油机 vs 柴油机</li><li>差异对照表</li><li>可拆解部件</li></ul>
+        <span class="go">打开对比总览</span>
+      </a>
+    </div>
+
+    <section class="how" aria-label="使用说明">
+      <div><h3>拖动角度</h3><p>使用“曲轴转角”滑杆或表盘四角的冲程按钮，精确定位到吸气、压缩、做功、排气。</p></div>
+      <div><h3>点按部件</h3><p>点击图中的蓝点查看零件说明；单击机体可拆解气门组、缸盖、进排气管与飞轮。</p></div>
+      <div><h3>随堂小测</h3><p>每个详情页附三道随机判断题，适合课堂投屏或手机自测。</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>四冲程内燃机 · 原理展示</span>
+    <span>手机 / 平板 / 桌面自适应</span>
+  </footer>
+</div>
+</body>
+</html>
