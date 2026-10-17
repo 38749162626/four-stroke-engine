@@ -111,7 +111,7 @@ html{color-scheme:dark}
 body[data-theme="light"]{color-scheme:light}
 body{margin:0;background:var(--anatomy-page);color:var(--anatomy-text);font:14px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 .iso-page{width:min(820px,100% - 32px);margin:64px auto 96px}
-</style></head><body class="iso" data-theme="light"><main class="iso-page"><nav class="site-nav"><a href="index.html?v=20261017e">← 首页</a><span>汽油机 · 火花点火 · 20261017e</span></nav>
+</style></head><body class="iso" data-theme="light"><main class="iso-page"><nav class="site-nav"><a href="index.html?v=20261017f">← 首页</a><span>汽油机 · 火花点火 · 20261017f</span></nav>
 <div class="edu-bar">
   <button class="edu-btn primary" type="button" data-edu-play aria-pressed="true"><span data-edu-play-icon>⏸</span><span data-edu-play-label>暂停</span></button>
   <button class="edu-btn" type="button" data-edu-step>▸| 单步 +15°</button>
@@ -179,19 +179,19 @@ body{background:var(--ks-lacquer);color:var(--ks-body);font-family:var(--ks-sans
 @media(prefers-reduced-motion:reduce){.gas-stream-line{animation:none}}
 .valve-seat{fill:none;stroke:var(--anatomy-hi);stroke-width:1.2;stroke-linejoin:round;opacity:.85}
 .valve-head{fill:var(--anatomy-face);stroke:var(--anatomy-hi);stroke-width:1;stroke-linejoin:round;opacity:.96}
-.iso-dial-gears{position:absolute;inset:0;pointer-events:none;z-index:6}
+.iso-dial-gears{position:absolute;inset:0;pointer-events:none;z-index:9}
 .iso-dial-bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0 0}
 .iso-dial-bar .iso-gear{position:static;transform:none;min-width:0;min-height:38px;padding:6px 16px}
 .iso-dial-bar .iso-gear:hover{transform:none}
-.iso-gear{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;appearance:none;border:1px solid var(--anatomy-mid);background:var(--anatomy-card);color:var(--anatomy-strong);font-family:var(--anatomy-mono);font-size:9px;letter-spacing:.02em;padding:3px 5px;border-radius:99px;cursor:pointer;box-shadow:var(--anatomy-lift);white-space:nowrap;transition:background .18s,color .18s,border-color .18s,transform .12s;z-index:6}
+.iso-gear{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;appearance:none;border:1px solid var(--anatomy-mid);background:var(--anatomy-card);color:var(--anatomy-strong);font-family:var(--anatomy-mono);font-size:9px;letter-spacing:.02em;padding:3px 5px;border-radius:99px;cursor:pointer;box-shadow:var(--anatomy-lift);white-space:nowrap;transition:background .18s,color .18s,border-color .18s,transform .12s;z-index:9}
 .iso-gear:hover{border-color:var(--anatomy-strong);transform:translate(-50%,-50%) scale(1.08)}
 .iso-gear.active{background:#0d6cb8;color:#fff;border-color:#0d6cb8;box-shadow:0 0 0 3px rgba(47,169,255,.18)}
 .iso-stage{position:relative}
 .iso-hotspots{position:absolute;inset:0;pointer-events:none;z-index:4}
 .iso-hs{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;border:1px solid var(--anatomy-mid);background:var(--anatomy-card);cursor:pointer;pointer-events:auto;padding:0;display:flex;align-items:center;justify-content:center;transition:transform .18s,border-color .18s,box-shadow .18s;z-index:4}
 .iso-hs::before{content:"";width:5px;height:5px;border-radius:50%;background:#2fa9ff;box-shadow:0 0 5px rgba(47,169,255,.5)}
-.iso-hs:hover,.iso-hs:focus-visible{transform:scale(1.15);border-color:var(--anatomy-strong);outline:none}
-.iso-hs.selected{border-color:#2fa9ff;box-shadow:0 0 0 4px rgba(47,169,255,.16)}
+.iso-hs:hover,.iso-hs:focus-visible{transform:scale(1.15);border-color:var(--anatomy-strong);outline:none;z-index:10}
+.iso-hs.selected{border-color:#2fa9ff;box-shadow:0 0 0 4px rgba(47,169,255,.16);z-index:10}
 .iso-hs-label{position:absolute;left:22px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:var(--anatomy-mono);font-size:9.5px;letter-spacing:.03em;color:var(--anatomy-strong);background:var(--anatomy-card);border:1px solid var(--anatomy-faint);padding:2px 6px;border-radius:5px;opacity:0;pointer-events:none;transition:opacity .15s;box-shadow:var(--anatomy-lift)}
 .iso-hs:hover .iso-hs-label,.iso-hs:focus-visible .iso-hs-label,.iso-hs.selected .iso-hs-label{opacity:1}
 .iso-hs.flip .iso-hs-label{left:auto;right:22px}
@@ -390,7 +390,7 @@ body{background:var(--ks-lacquer);color:var(--ks-body);font-family:var(--ks-sans
 </div><div class="compare"><div class="compare-title">差异对照</div><table>
 <thead><tr><th></th><th data-engine="汽油机" class="on">汽油机</th><th data-engine="柴油机">柴油机</th></tr></thead>
 <tbody><tr><td>混合气形成</td><td data-engine="汽油机" class="on">化油器 + 节气门</td><td data-engine="柴油机">缸内直喷，无节气门</td></tr><tr><td>压缩比</td><td data-engine="汽油机" class="on">10.5 : 1</td><td data-engine="柴油机">17.5 : 1</td></tr><tr><td>点火 / 喷油</td><td data-engine="汽油机" class="on">火花塞 · 上止点前 15°</td><td data-engine="柴油机">喷油器 · 上止点前 8°</td></tr><tr><td>进气压力</td><td data-engine="汽油机" class="on">约 0.9 bar（节流）</td><td data-engine="柴油机">约 1.0 bar（全开）</td></tr><tr><td>峰值缸压</td><td data-engine="汽油机" class="on">约 62 bar</td><td data-engine="柴油机">约 120 bar</td></tr><tr><td>活塞顶</td><td data-engine="汽油机" class="on">平顶 + 气门凹坑</td><td data-engine="柴油机">碗形燃烧室</td></tr><tr><td>气门持续角</td><td data-engine="汽油机" class="on">180° 曲轴</td><td data-engine="柴油机">180° 曲轴</td></tr><tr><td>负荷调节</td><td data-engine="汽油机" class="on">节气门</td><td data-engine="柴油机">喷油量</td></tr></tbody>
-</table></div><div class="compare-links"><a href="index.html?v=20261017e">首页</a><a href="diesel-engine.html?v=20261017e">柴油机详情 →</a><a href="four-stroke-engines.html?v=20261017e">对比总览</a></div>
+</table></div><div class="compare-links"><a href="index.html?v=20261017f">首页</a><a href="diesel-engine.html?v=20261017f">柴油机详情 →</a><a href="four-stroke-engines.html?v=20261017f">对比总览</a></div>
 <div class="edu-modal" data-edu-quiz-modal role="dialog" aria-modal="true" aria-labelledby="edu-quiz-title">
   <div class="edu-modal-backdrop" data-edu-quiz-close></div>
   <div class="edu-modal-card">
